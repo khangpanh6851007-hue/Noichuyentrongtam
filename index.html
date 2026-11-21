@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+< lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Tâm Thoại & Chuyển Hóa Tà Niệm</title>
+  <style>
+    :root {
+      --bg-deep: #0b1110;
+      --bg-card: #121c1a;
+      --bg-soft: #182522;
+      --text-main: #e6ece9;
+      --text-muted: #95a59e;
+      --accent-jade: #68b09c;
+      --accent-gold: #d4a857;
+      --accent-warm: #c97c63;
+      --border-subtle: rgba(230, 236, 233, 0.1);
+      --shadow-soft: 0 12px 30px rgba(0, 0, 0, 0.35);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      height: 100%;
+      background: radial-gradient(circle at top, #13211e 0%, var(--bg-deep) 70%);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .app-shell {
+      max-width: 780px;
+      min-height: 100dvh;
+      margin: 0 auto;
+      padding: 18px 16px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    header {
+      background: rgba(18, 28, 26, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lotus-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(104, 176, 156, 0.22), rgba(212, 168, 87, 0.18));
+      border: 1px solid rgba(212, 168, 87, 0.35);
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      color: var(--accent-gold);
+      flex-shrink: 0;
+    }
+
+    h1 {
+      font-size: clamp(1.15rem, 3.8vw, 1.5rem);
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      color: var(--text-main);
+    }
+
+    .subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .sound-btn {
+      background: var(--bg-soft);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-pill);
+      padding: 8px 14px;
+      font-size: 0.84rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+
+    .sound-btn:hover, .sound-btn.active {
+      border-color: var(--accent-jade);
+      background: rgba(104, 176, 156, 0.15);
+      color: #bfe6dc;
+    }
+
+    .quote-banner {
+      background: rgba(24, 37, 34, 0.72);
+      border-left: 3px solid var(--accent-gold);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      color: #dbe4df;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .quote-next {
+      background: transparent;
+      border: none;
+      color: var(--accent-gold);
+      font-size: 0.82rem;
+      cursor: pointer;
+      white-space: nowrap;
+      padding: 4px 6px;
+      border-radius: 6px;
+    }
+
+    .quote-next:hover {
+      background: rgba(212, 168, 87, 0.12);
+    }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      background: rgba(18, 28, 26, 0.75);
+      padding: 6px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 10px 6px;
+      border-radius: 9px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .tab-btn span.icon {
+      font-size: 1.05rem;
+    }
+
+    .tab-btn.active {
+      background: var(--bg-soft);
+      color: var(--text-main);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(104, 176, 156, 0.3);
+    }
+
+    .panel {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .panel.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: rgba(18, 28, 26, 0.88);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    /* Chuyển hóa tà niệm */
+    .thought-input-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 92px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.95rem;
+      resize: vertical;
+      transition: var(--transition);
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent-jade);
+      box-shadow: 0 0 0 3px rgba(104, 176, 156, 0.15);
+    }
+
+    .chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .chip {
+      background: var(--bg-soft);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      border-radius: var(--radius-pill);
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .chip:hover {
+      color: var(--text-main);
+      border-color: rgba(104, 176, 156, 0.45);
+      background: rgba(104, 176, 156, 0.12);
+    }
+
+    .action-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #4b9480, #68b09c);
+      color: #07120f;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 11px 18px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.07);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--bg-soft);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 11px 14px;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(230, 236, 233, 0.3);
+    }
+
+    .reflection-box {
+      margin-top: 14px;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(160deg, rgba(104, 176, 156, 0.1), rgba(212, 168, 87, 0.06));
+      border: 1px solid rgba(104, 176, 156, 0.28);
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .reflection-box.show {
+      display: flex;
+    }
+
+    .step-item {
+      background: rgba(11, 17, 16, 0.55);
+      border-radius: 10px;
+      padding: 11px 13px;
+      border-left: 3px solid var(--accent-jade);
+    }
+
+    .step-item.gold {
+      border-left-color: var(--accent-gold);
+    }
+
+    .step-label {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--accent-jade);
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .step-item.gold .step-label {
+      color: var(--accent-gold);
+    }
+
+    .dissolve-btn {
+      align-self: flex-start;
+      background: rgba(212, 168, 87, 0.15);
+      color: #f0cf8e;
+      border: 1px solid rgba(212, 168, 87, 0.4);
+      border-radius: var(--radius-pill);
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .dissolve-btn:hover {
+      background: rgba(212, 168, 87, 0.25);
+    }
+
+    /* Nhật ký tâm */
+    .log-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .log-entry {
+      background: var(--bg-soft);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 13px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .log-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .badge-status {
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      font-size: 0.74rem;
+      font-weight: 600;
+    }
+
+    .badge-status.done {
+      background: rgba(104, 176, 156, 0.18);
+      color: #9ce0cd;
+    }
+
+    .badge-status.pending {
+      background: rgba(201, 124, 99, 0.18);
+      color: #f0b39e;
+    }
+
+    .log-original {
+      font-size: 0.92rem;
+      color: var(--text-main);
+    }
+
+    .log-reframe {
+      font-size: 0.85rem;
+      color: #c5dad3;
+      padding-top: 6px;
+      border-top: 1px dashed rgba(230, 236, 233, 0.1);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 24px 12px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Quán hơi thở */
+    .breath-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 22px 12px;
+      gap: 18px;
+    }
+
+    .breath-circle-wrap {
+      position: relative;
+      width: 210px;
+      height: 210px;
+      display: grid;
+      place-items: center;
+    }
+
+    .breath-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1px solid rgba(104, 176, 156, 0.25);
+    }
+
+    .breath-orb {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, rgba(154, 217, 199, 0.65), rgba(75, 148, 128, 0.25) 70%, rgba(212, 168, 87, 0.12));
+      border: 1px solid rgba(154, 217, 199, 0.5);
+      box-shadow: 0 0 40px rgba(104, 176, 156, 0.22);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: transform 1s ease-in-out, box-shadow 1s ease-in-out;
+    }
+
+    .breath-phase {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #f2f7f5;
+    }
+
+    .breath-count {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-top: 2px;
+    }
+
+    .breath-hint {
+      max-width: 420px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Tràng hạt 108 */
+    .mala-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-soft);
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      margin-bottom: 14px;
+      font-size: 0.9rem;
+    }
+
+    .mala-num {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+    }
+
+    .mantra-select {
+      width: 100%;
+      background: var(--bg-soft);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      font-size: 0.9rem;
+      margin-bottom: 14px;
+    }
+
+    .mala-tap-btn {
+      width: 100%;
+      padding: 22px 16px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(145deg, rgba(212, 168, 87, 0.18), rgba(104, 176, 156, 0.16));
+      border: 1px solid rgba(212, 168, 87, 0.45);
+      color: var(--text-main);
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .mala-tap-btn:active {
+      transform: scale(0.98);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #1d2e2a;
+      color: #eef5f2;
+      border: 1px solid rgba(104, 176, 156, 0.45);
+      padding: 10px 18px;
+      border-radius: var(--radius-pill);
+      font-size: 0.86rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+      z-index: 99;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 480px) {
+      .tabs {
+        gap: 5px;
+        padding: 5px;
+      }
+      .tab-btn {
+        font-size: 0.76rem;
+        padding: 8px 4px;
+      }
+      .card {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<>
+  <div class="app-shell">
+    <header>
+      <div class="header-top">
+        <div class="brand">
+          <div class="lotus-badge" aria-hidden="true">🪷</div>
+          <div>
+            <h1>Tâm Thoại & Chuyển Hóa Tà Niệm</h1>
+            <div class="subtitle">Nhận diện niệm khởi • Không tự trách • Giữ chánh niệm</div>
+          </div>
+        </div>
+        <button id="soundToggle" class="sound-btn" type="button" aria-pressed="false">
+          🔔 Chuông: Tắt
+        </button>
+      </div>
+
+      <div class="quote-banner">
+        <div id="dailyQuote">“Niệm khởi thì biết, niệm diệt thì thôi; không theo niệm chạy, không sợ niệm sinh.”</div>
+        <button id="nextQuoteBtn" class="quote-next" type="button">Đổi câu</button>
+      </div>
+    </header>
+
+    <nav class="tabs" role="tablist" aria-label="Chức năng tu tập">
+      <button class="tab-btn active" data-tab="panel-reflect" role="tab" aria-selected="true">
+        <span class="icon">🌿</span>
+        <span>Soi Niệm</span>
+      </button>
+      <button class="tab-btn" data-tab="panel-breath" role="tab" aria-selected="false">
+        <span class="icon">🌬️</span>
+        <span>Hơi Thở</span>
+      </button>
+      <button class="tab-btn" data-tab="panel-mala" role="tab" aria-selected="false">
+        <span class="icon">📿</span>
+        <span>Tràng Hạt</span>
+      </button>
+      <button class="tab-btn" data-tab="panel-journal" role="tab" aria-selected="false">
+        <span class="icon">📖</span>
+        <span>Nhật Ký</span>
+      </button>
+    </nav>
+
+    <!-- TAB 1: SOI & CHUYỂN HÓA TÀ NIỆM -->
+    <section id="panel-reflect" class="panel active" role="tabpanel">
+      <div class="card">
+        <div class="card-title">🌱 Khi tâm đang đối thoại mà xen vào niệm bất thiện</div>
+        <p class="card-desc">
+          Trong chánh niệm, niệm xấu hoặc tạp niệm khởi lên là hiện tượng tâm sinh diệt bình thường. Việc thấy rõ nó đang khởi lên chính là lúc tỉnh giác bắt đầu.
+        </p>
+
+        <div class="thought-input-wrap">
+          <label for="thoughtInput" class="subtitle">Ghi lại câu nghĩ hoặc cảm xúc đang xen ngang trong tâm:</label>
+          <textarea id="thoughtInput" placeholder="Ví dụ: Đang ngồi yên mà tự nhiên khởi tâm sân hận, oán trách, ganh tị, hoặc suy nghĩ bất kính..."></textarea>
+
+          <div class="chips-row" aria-label="Gợi ý niệm thường gặp">
+            <button type="button" class="chip" data-sample="Tâm sân giận, muốn nói lời làm tổn thương người khác">Sân hận & lời gay gắt</button>
+            <button type="button" class="chip" data-sample="Tâm ganh tị, so sánh hơn thua với người xung quanh">Ganh tị & hơn thua</button>
+            <button type="button" class="chip" data-sample="Tâm tham muốn, bám chấp vào cảm thọ hay vật chất">Tham ái & bám chấp</button>
+            <button type="button" class="chip" data-sample="Tâm hoài nghi, chán nản, tự ti và buông xuôi">Hoài nghi & chán nản</button>
+            <button type="button" class="chip" data-sample="Tâm tán loạn, nghĩ lung tung không dừng được">Tán loạn & nghĩ miên man</button>
+          </div>
+
+          <div class="action-row">
+            <button id="analyzeBtn" class="btn-primary" type="button">🪷 Quán Chiếu & Chuyển Hóa</button>
+            <button id="clearInputBtn" class="btn-secondary" type="button">Xóa</button>
+          </div>
+        </div>
+
+        <div id="reflectionBox" class="reflection-box" aria-live="polite">
+          <div class="step-item">
+            <div class="step-label">1. Tỉnh Giác (Biết rõ)</div>
+            <div id="stepAware"></div>
+          </div>
+          <div class="step-item">
+            <div class="step-label">2. Vô Thường (Không đồng nhất)</div>
+            <div id="stepImpermanent"></div>
+          </div>
+          <div class="step-item gold">
+            <div class="step-label">3. Chuyển Hóa (Nuôi thiện niệm)</div>
+            <div id="stepShift"></div>
+          </div>
+          <button id="dissolveBtn" class="dissolve-btn" type="button">
+            ✨ Buông xả niệm này & Lưu vào Nhật Ký
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: QUÁN HƠI THỞ -->
+    <section id="panel-breath" class="panel" role="tabpanel">
+      <div class="card">
+        <div class="card-title">🌬️ Neo Tâm Vào Hơi Thở</div>
+        <p class="card-desc">
+          Khi tạp niệm kéo tâm đi xa, hãy nhẹ nhàng quay về cảm nhận luồng khí vào và ra nơi đầu mũi. Không ép buộc, chỉ quan sát.
+        </p>
+
+        <div class="breath-stage">
+          <div class="breath-circle-wrap">
+            <div class="breath-ring"></div>
+            <div id="breathOrb" class="breath-orb">
+              <div id="breathPhase" class="breath-phase">Sẵn sàng</div>
+              <div id="breathCount" class="breath-count">4s</div>
+            </div>
+          </div>
+
+          <p id="breathHint" class="breath-hint">
+            Hít vào biết rõ đang hít vào • Giữ nhẹ • Thở ra biết rõ đang thở ra và buông bớt căng thẳng.
+          </p>
+
+          <div class="action-row" style="width: 100%; max-width: 360px;">
+            <button id="breathToggleBtn" class="btn-primary" type="button">Bắt đầu quán thở</button>
+            <button id="breathResetBtn" class="btn-secondary" type="button">Dừng</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: TRÀNG HẠT 108 -->
+    <section id="panel-mala" class="panel" role="tabpanel">
+      <div class="card">
+        <div class="card-title">📿 Nhiếp Tâm Với Câu Niệm Chánh</div>
+        <p class="card-desc">
+          Dùng một câu chánh niệm ngắn gọn làm điểm tựa để tâm bớt lang thang theo vọng tưởng. Mỗi lần bấm là một hạt.
+        </p>
+
+        <div class="mala-stats">
+          <div>
+            <div class="subtitle">Hạt hiện tại</div>
+            <div><span id="malaCount" class="mala-num">0</span> / 108</div>
+          </div>
+          <div style="text-align: right;">
+            <div class="subtitle">Chuỗi hoàn thành</div>
+            <div><span id="malaRounds" class="mala-num">0</span> vòng</div>
+          </div>
+        </div>
+
+        <label for="mantraSelect" class="subtitle" style="display:block; margin-bottom:6px;">Chọn câu nhiếp tâm:</label>
+        <select id="mantraSelect" class="mantra-select">
+          <option value="Nam Mô Bổn Sư Thích Ca Mâu Ni Phật">Nam Mô Bổn Sư Thích Ca Mâu Ni Phật</option>
+          <option value="Nam Mô A Di Đà Phật">Nam Mô A Di Đà Phật</option>
+          <option value="Tâm tĩnh lặng — Thân an nhiên">Tâm tĩnh lặng — Thân an nhiên</option>
+          <option value="Biết rõ niệm khởi — Không chạy theo">Biết rõ niệm khởi — Không chạy theo</option>
+          <option value="Nguyện tâm từ bi — Xa lìa sân hận">Nguyện tâm từ bi — Xa lìa sân hận</option>
+        </select>
+
+        <button id="malaTapBtn" class="mala-tap-btn" type="button">
+          <span id="malaActiveText">Nam Mô Bổn Sư Thích Ca Mâu Ni Phật</span>
+          <span class="subtitle">Chạm để lần một hạt chánh niệm</span>
+        </button>
+
+        <div class="action-row" style="margin-top: 12px;">
+          <button id="malaResetBtn" class="btn-secondary" type="button">Đặt lại số đếm</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: NHẬT KÝ TÂM -->
+    <section id="panel-journal" class="panel" role="tabpanel">
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px;">
+          <div class="card-title" style="margin:0;">📖 Nhật Ký Chuyển Hóa</div>
+          <button id="clearJournalBtn" class="btn-secondary" type="button" style="padding:6px 10px; font-size:0.78rem;">Xóa nhật ký</button>
+        </div>
+        <p class="card-desc">
+          Lưu cục bộ trên thiết bị của bạn (không gửi dữ liệu ra ngoài). Nhìn lại để thấy tâm dần bớt bị cuốn theo niệm cũ.
+        </p>
+
+        <div id="journalList" class="log-list"></div>
+      </div>
+    </section>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      const STORAGE_KEY = "tam_thoai_chuyen_hoa_v1";
+
+      const QUOTES = [
+        "“Niệm khởi thì biết, niệm diệt thì thôi; không theo niệm chạy, không sợ niệm sinh.”",
+        "“Tâm như mặt hồ: gió tà niệm thổi gợn sóng, biết rõ mặt nước thì sóng tự lắng.”",
+        "“Không đánh đuổi niệm bằng sự bực bội; chỉ cần thắp ngọn đèn chánh niệm, bóng tối tự tan.”",
+        "“Thấy mình đang giận hay đang loạn tâm đã là một bước tỉnh thức — đừng giận thêm vì mình vừa giận.”",
+        "“Một hơi thở chánh niệm kéo tâm về hiện tại, mọi vọng tưởng lập tức mất chỗ bám.”"
+      ];
+
+      let state = {
+        quoteIndex: 0,
+        soundOn: false,
+        malaCount: 0,
+        malaRounds: 0,
+        mantra: "Nam Mô Bổn Sư Thích Ca Mâu Ni Phật",
+        journal: []
+      };
+
+      let currentDraft = null;
+      let breathTimer = null;
+      let breathRunning = false;
+      let breathStepIndex = 0;
+      let breathSecLeft = 4;
+      let audioCtx = null;
+
+      const $ = (id) => document.getElementById(id);
+
+      function loadState() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            state = { ...state, ...parsed };
+          }
+        } catch (e) {
+          // Bỏ qua nếu trình duyệt chặn storage
+        }
+      }
+
+      function saveState() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (e) {}
+      }
+
+      function showToast(msg) {
+        const el = $("toast");
+        el.textContent = msg;
+        el.classList.add("show");
+        clearTimeout(showToast._t);
+        showToast._t = setTimeout(() => el.classList.remove("show"), 2400);
+      }
+
+      // Chuông chánh niệm nhẹ nhàng bằng Web Audio API (hoàn toàn offline)
+      function playBell() {
+        if (!state.soundOn) return;
+        try {
+          if (!audioCtx) {
+            const Ctx = window.AudioContext || window.webkitAudioContext;
+            audioCtx = new Ctx();
+          }
+          if (audioCtx.state === "suspended") {
+            audioCtx.resume();
+          }
+          const now = audioCtx.currentTime;
+          const freqs = [432, 864, 1296];
+          freqs.forEach((f, idx) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = "sine";
+            osc.frequency.setValueAtTime(f, now);
+
+            const peak = idx === 0 ? 0.12 : idx === 1 ? 0.04 : 0.015;
+            const duration = idx === 0 ? 2.6 : 1.5;
+
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.exponentialRampToValueAtTime(peak, now + 0.03);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + duration + 0.05);
+          });
+        } catch (e) {}
+      }
+
+      function renderQuote() {
+        $("dailyQuote").textContent = QUOTES[state.quoteIndex % QUOTES.length];
+      }
+
+      function renderSoundBtn() {
+        const btn = $("soundToggle");
+        btn.setAttribute("aria-pressed", String(state.soundOn));
+        btn.classList.toggle("active", state.soundOn);
+        btn.textContent = state.soundOn ? "🔔 Chuông: Bật" : "🔔 Chuông: Tắt";
+      }
+
+      function renderMala() {
+        $("malaCount").textContent = state.malaCount;
+        $("malaRounds").textContent = state.malaRounds;
+        $("mantraSelect").value = state.mantra;
+        $("malaActiveText").textContent = state.mantra;
+      }
+
+      function escapeHTML(str) {
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function formatTime(ts) {
+        try {
+          return new Date(ts).toLocaleString("vi-VN", {
+            hour: "2-digit",
+            minute: "2-digit",
+            day: "2-digit",
+            month: "2-digit"
+          });
+        } catch (e) {
+          return "";
+        }
+      }
+
+      function renderJournal() {
+        const list = $("journalList");
+        if (!state.journal.length) {
+          list.innerHTML = `<div class="empty-state">Chưa có ghi nhận nào. Khi bạn quán chiếu và buông xả một niệm xen ngang, mục đó sẽ hiện ở đây.</div>`;
+          return;
+        }
+        list.innerHTML = state.journal
+          .map(
+            (item) => `
+          <article class="log-entry">
+            <div class="log-meta">
+              <span>${escapeHTML(formatTime(item.time))}</span>
+              <span class="badge-status ${item.dissolved ? "done" : "pending"}">
+                ${item.dissolved ? "Đã buông & chuyển hóa" : "Đang quán chiếu"}
+              </span>
+            </div>
+            <div class="log-original">${escapeHTML(item.original)}</div>
+            <div class="log-reframe">🌿 ${escapeHTML(item.shift)}</div>
+          </article>
+        `
+          )
+          .join("");
+      }
+
+      function classifyThought(text) {
+        const t = text.toLowerCase();
+        if (/sân|giận|tức|ghét|oán|chửi|hận|bực/.test(t)) {
+          return {
+            category: "Sân niệm",
+            aware: "Đang có luồng nóng của sự giận dữ hoặc bực bội khởi lên trong tâm. Biết rõ: 'Sân đang có mặt', chứ không vội tin rằng mình phải phản ứng ngay.",
+            impermanent: "Cơn giận giống như ngọn lửa khô: bùng lên rồi cũng sẽ tàn nếu không thêm củi của sự suy diễn và oán trách.",
+            shift: "Thở ra nhẹ nhàng, thả lỏng vai và hàm. Khởi tâm từ bi: mong cho mình và người đều bớt khổ đau, giữ lời nói và hành động hiền hòa."
+          };
+        }
+        if (/ganh|tị|hơn thua|đố kỵ|so sánh|tỵ nạnh/.test(t)) {
+          return {
+            category: "Tâm so sánh & ganh tị",
+            aware: "Tâm đang tự đặt mình lên bàn cân so sánh và thấy thiếu hụt hoặc khó chịu trước điều người khác có.",
+            impermanent: "So sánh hơn thua là vòng quay không có điểm dừng; hôm nay hơn, mai có thể khác — chỉ có bình an hiện tại là thật.",
+            shift: "Hoan hỷ với điều lành của người khác và quay về trân trọng những gì mình đang có, đang làm được."
+          };
+        }
+        if (/tham|muốn|thèm|bám|dính mắc|ham/.test(t)) {
+          return {
+            category: "Tâm tham ái & bám chấp",
+            aware: "Tâm đang bị hút về một đối tượng, cảm giác hoặc mong cầu nào đó và muốn giữ chặt lấy.",
+            impermanent: "Mọi cảm thọ dễ chịu hay đối tượng duyên theo đều vô thường, đổi thay; bám càng chặt, tâm càng dễ dao động.",
+            shift: "Tập biết đủ trong giây phút này, nhìn rõ sự mong manh của sự bám víu để tâm nhẹ bẫng hơn."
+          };
+        }
+        if (/nghi|chán|nản|buông xuôi|tự ti|sợ|lo/.test(t)) {
+          return {
+            category: "Tâm hoài nghi & chán nản",
+            aware: "Tâm đang chùng xuống bởi sự mệt mỏi, hoài nghi hoặc tự trách bản thân.",
+            impermanent: "Mây mù che khuất bầu trời chỉ là tạm thời; sự uể oải này cũng sinh rồi diệt theo nhân duyên và sức khỏe.",
+            shift: "Đừng tự trách mình vì có niệm yếu đuối. Nghỉ một nhịp, thở sâu, tin vào khả năng quay về chánh niệm bất cứ lúc nào."
+          };
+        }
+        return {
+          category: "Tạp niệm & tán loạn",
+          aware: "Tâm đang chạy theo nhiều luồng nghĩ khác nhau xen vào mạch chuyện hiện tại. Nhận ra điều này là bạn đã tỉnh lại một phần.",
+          impermanent: "Từng ý nghĩ chỉ xuất hiện thoáng qua trong chốc lát rồi nhường chỗ cho ý nghĩ khác.",
+          shift: "Đưa sự chú ý về một điểm neo đơn giản (hơi thở hoặc câu niệm chánh) và tiếp tục việc đang làm với tâm an tĩnh."
+        };
+      }
+
+      // Tabs
+      document.querySelectorAll(".tab-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const targetId = btn.dataset.tab;
+          document.querySelectorAll(".tab-btn").forEach((b) => {
+            const active = b === btn;
+            b.classList.toggle("active", active);
+            b.setAttribute("aria-selected", String(active));
+          });
+          document.querySelectorAll(".panel").forEach((p) => {
+            p.classList.toggle("active", p.id === targetId);
+          });
+          if (targetId !== "panel-breath" && breathRunning) {
+            stopBreath();
+          }
+        });
+      });
+
+      // Header events
+      $("nextQuoteBtn").addEventListener("click", () => {
+        state.quoteIndex = (state.quoteIndex + 1) % QUOTES.length;
+        renderQuote();
+        saveState();
+      });
+
+      $("soundToggle").addEventListener("click", () => {
+        state.soundOn = !state.soundOn;
+        renderSoundBtn();
+        saveState();
+        if (state.soundOn) {
+          playBell();
+          showToast("Đã bật tiếng chuông nhẹ");
+        } else {
+          showToast("Đã tắt tiếng chuông");
+        }
+      });
+
+      // Chips mẫu
+      document.querySelectorAll(".chip").forEach((chip) => {
+        chip.addEventListener("click", () => {
+          $("thoughtInput").value = chip.dataset.sample || "";
+          $("thoughtInput").focus();
+        });
+      });
+
+      $("clearInputBtn").addEventListener("click", () => {
+        $("thoughtInput").value = "";
+        $("reflectionBox").classList.remove("show");
+        currentDraft = null;
+      });
+
+      $("analyzeBtn").addEventListener("click", () => {
+        const raw = $("thoughtInput").value.trim();
+        if (!raw) {
+          showToast("Hãy viết vài dòng về niệm đang xen ngang");
+          $("thoughtInput").focus();
+          return;
+        }
+        const res = classifyThought(raw);
+        currentDraft = {
+          original: raw,
+          shift: res.shift,
+          time: Date.now(),
+          dissolved: false
+        };
+
+        $("stepAware").textContent = res.aware;
+        $("stepImpermanent").textContent = res.impermanent;
+        $("stepShift").textContent = res.shift;
+        $("reflectionBox").classList.add("show");
+        playBell();
+      });
+
+      $("dissolveBtn").addEventListener("click", () => {
+        if (!currentDraft) return;
+        state.journal.unshift({
+          ...currentDraft,
+          dissolved: true,
+          time: Date.now()
+        });
+        state.journal = state.journal.slice(0, 40);
+        saveState();
+        renderJournal();
+        playBell();
+
+        $("thoughtInput").value = "";
+        $("reflectionBox").classList.remove("show");
+        currentDraft = null;
+        showToast("Đã buông xả niệm & lưu vào Nhật Ký");
+      });
+
+      // Quán hơi thở (4 - 2 - 4)
+      const BREATH_STEPS = [
+        { label: "Hít vào", duration: 4, scale: 1.32, hint: "Cảm nhận hơi thở nhẹ nhàng đi vào, giữ tâm điềm tĩnh." },
+        { label: "Giữ nhẹ", duration: 2, scale: 1.32, hint: "An trú yên lặng, không gồng cứng cơ thể." },
+        { label: "Thở ra", duration: 4, scale: 0.92, hint: "Thở ra chậm rãi, buông bớt căng thẳng và niệm xen ngang." }
+      ];
+
+      function applyBreathVisual() {
+        const step = BREATH_STEPS[breathStepIndex];
+        $("breathPhase").textContent = step.label;
+        $("breathCount").textContent = `${breathSecLeft}s`;
+        $("breathHint").textContent = step.hint;
+        $("breathOrb").style.transform = `scale(${step.scale})`;
+      }
+
+      function stopBreath() {
+        breathRunning = false;
+        clearInterval(breathTimer);
+        breathTimer = null;
+        breathStepIndex = 0;
+        breathSecLeft = 4;
+        $("breathToggleBtn").textContent = "Bắt đầu quán thở";
+        $("breathPhase").textContent = "Sẵn sàng";
+        $("breathCount").textContent = "4s";
+        $("breathOrb").style.transform = "scale(1)";
+        $("breathHint").textContent = "Hít vào biết rõ đang hít vào • Giữ nhẹ • Thở ra biết rõ đang thở ra và buông bớt căng thẳng.";
+      }
+
+      function startBreath() {
+        if (breathRunning) return;
+        breathRunning = true;
+        breathStepIndex = 0;
+        breathSecLeft = BREATH_STEPS[0].duration;
+        $("breathToggleBtn").textContent = "Tạm dừng";
+        applyBreathVisual();
+        playBell();
+
+        breathTimer = setInterval(() => {
+          breathSecLeft -= 1;
+          if (breathSecLeft <= 0) {
+            breathStepIndex = (breathStepIndex + 1) % BREATH_STEPS.length;
+            breathSecLeft = BREATH_STEPS[breathStepIndex].duration;
+          }
+          applyBreathVisual();
+        }, 1000);
+      }
+
+      $("breathToggleBtn").addEventListener("click", () => {
+        if (breathRunning) {
+          breathRunning = false;
+          clearInterval(breathTimer);
+          $("breathToggleBtn").textContent = "Tiếp tục";
+        } else {
+          startBreath();
+        }
+      });
+
+      $("breathResetBtn").addEventListener("click", stopBreath);
+
+      // Tràng hạt 108
+      $("mantraSelect").addEventListener("change", (e) => {
+        state.mantra = e.target.value;
+        $("malaActiveText").textContent = state.mantra;
+        saveState();
+      });
+
+      $("malaTapBtn").addEventListener("click", () => {
+        state.malaCount += 1;
+        if (state.malaCount >= 108) {
+          state.malaCount = 0;
+          state.malaRounds += 1;
+          playBell();
+          showToast(" viên mãn 1 chuỗi 108 hạt chánh niệm!");
+        }
+        renderMala();
+        saveState();
+      });
+
+      $("malaResetBtn").addEventListener("click", () => {
+        state.malaCount = 0;
+        state.malaRounds = 0;
+        renderMala();
+        saveState();
+        showToast("Đã đặt lại tràng hạt");
+      });
+
+      // Nhật ký
+      $("clearJournalBtn").addEventListener("click", () => {
+        if (!state.journal.length) return;
+        state.journal = [];
+        saveState();
+        renderJournal();
+        showToast("Đã xóa nhật ký");
+      });
+
+      // Khởi tạo
+      loadState();
+      renderQuote();
+      renderSoundBtn();
+      renderMala();
+      renderJournal();
+      })();
+  </script>
+</body>
+</html>
